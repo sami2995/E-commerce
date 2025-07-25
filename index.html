@@ -112,6 +112,47 @@
       dataAppend.appendChild(card);
     });
   }
+
+   function populateCategories(data) {
+    const categories = [...new Set(data.map(p => p.category).filter(Boolean))];
+    categories.forEach(cat => {
+      const option = document.createElement("option");
+      option.value = cat;
+      option.innerText = cat;
+      categoryFilter.appendChild(option);
+    });
+  }
+
+  function filterAndSortProducts() {
+    let filtered = [...products];
+
+    const searchText = searchInput.value.toLowerCase();
+    if (searchText) {
+      filtered = filtered.filter(p => p.title.toLowerCase().includes(searchText));
+    }
+
+    const selectedCategory = categoryFilter.value;
+    if (selectedCategory) {
+      filtered = filtered.filter(p => p.category === selectedCategory);
+    }
+
+    const sortValue = priceSort.value;
+    if (sortValue === "asc") {
+      filtered.sort((a, b) => a.price - b.price);
+    } else if (sortValue === "desc") {
+      filtered.sort((a, b) => b.price - a.price);
+    }
+
+    renderProducts(filtered);
+  }
+
+  searchInput.addEventListener("input", filterAndSortProducts);
+  categoryFilter.addEventListener("change", filterAndSortProducts);
+  priceSort.addEventListener("change", filterAndSortProducts);
+
+ 
+  loadProductsFromLocalStorage();
+  
   </script>
     
 </body>
