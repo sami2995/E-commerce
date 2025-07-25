@@ -103,6 +103,39 @@
         `;
       });
 
+       const categoryStockMap = {};
+      data.forEach(p => {
+        if (!categoryStockMap[p.category]) categoryStockMap[p.category] = 0;
+        categoryStockMap[p.category] += p.stock;
+      });
+
+      const chartLabels = Object.keys(categoryStockMap);
+      const chartData = Object.values(categoryStockMap);
+
+      if (window.stockChartInstance) window.stockChartInstance.destroy();
+
+      const ctx = document.getElementById('stockChart').getContext('2d');
+      window.stockChartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: chartLabels,
+          datasets: [{
+            label: 'Stock Count',
+            data: chartData,
+            backgroundColor: 'rgba(54, 162, 235, 0.6)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: { beginAtZero: true, ticks: { precision: 0 } }
+          }
+        }
+      });
+    }
+
 
   </script>
     
