@@ -158,6 +158,50 @@
       loadProducts();
     }
 
+    body.addEventListener('click', (e) => {
+      const row = e.target.closest('tr');
+      if (!row) return;
+      const id = row.dataset.id;
+
+      if (e.target.classList.contains('edit-btn')) {
+        const product = getLocalProducts().find(p => p.id == id);
+        if (product) {
+          document.getElementById('product-id').value = product.id;
+          form.title.value = product.title;
+          form.price.value = product.price;
+          form.stock.value = product.stock;
+          form.category.value = product.category;
+        }
+      }
+
+      if (e.target.classList.contains('delete-btn')) {
+        deleteProduct(id);
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('product-id').value;
+
+      const product = {
+        title: form.title.value,
+        price: parseFloat(form.price.value),
+        stock: parseInt(form.stock.value),
+        category: form.category.value
+      };
+
+      if (id) {
+        updateProduct(id, product);
+      } else {
+        addProduct(product);
+      }
+
+      form.reset();
+      document.getElementById('product-id').value = '';
+    });
+
+    loadProducts();
+
   </script>
     
   </body>
