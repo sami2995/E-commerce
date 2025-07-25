@@ -98,7 +98,7 @@
       cardDesc.innerText = product.description?.substring(0, 80) + "..." || 'No description.';
 
       let cardStock = document.createElement('p');
-      cardStock.className = 'text-muted';
+      cardStock.className = 'card-text';
       cardStock.innerText = `Stock: ${product.stock ?? "N/A"}`;
 
       let cardCategory = document.createElement('span');
