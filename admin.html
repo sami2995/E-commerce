@@ -136,6 +136,27 @@
       });
     }
 
+    function addProduct(product) {
+      const products = getLocalProducts();
+      const newId = Date.now();
+      products.push({ id: newId, ...product });
+      saveLocalProducts(products);
+      loadProducts();
+    }
+
+    function updateProduct(id, product) {
+      let products = getLocalProducts();
+      products = products.map(p => p.id == id ? { ...p, ...product } : p);
+      saveLocalProducts(products);
+      loadProducts();
+    }
+
+    function deleteProduct(id) {
+      let products = getLocalProducts();
+      products = products.filter(p => p.id != id);
+      saveLocalProducts(products);
+      loadProducts();
+    }
 
   </script>
     
