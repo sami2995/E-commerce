@@ -50,6 +50,60 @@
   <script>
     const API = 'https://fakestoreapi.com/products';
     const LOCAL_KEY = 'products'
+
+      const form = document.getElementById('product-form');
+    const body = document.getElementById('product-body');
+
+    function getLocalProducts() {
+      return JSON.parse(localStorage.getItem(LOCAL_KEY)) || [];
+    }
+
+    function saveLocalProducts(products) {
+      localStorage.setItem(LOCAL_KEY, JSON.stringify(products));
+    }
+
+    function loadProducts() {
+      let localData = getLocalProducts();
+
+      if (localData.length === 0) {
+        fetch(API)
+          .then(res => res.json())
+          .then(data => {
+            const formatted = data.map(p => ({
+              id: p.id,
+              title: p.title,
+              price: p.price,
+              stock: Math.floor(Math.random() * 100),
+              category: p.category,
+              image: p.image,
+              description: p.description
+            }));
+            saveLocalProducts(formatted);
+            renderProducts(formatted);
+          });
+      } else {
+        renderProducts(localData);
+      }
+    }
+
+    function renderProducts(data) {
+      body.innerHTML = '';
+      data.forEach(product => {
+        body.innerHTML += `
+          <tr data-id="${product.id}">
+            <td>${product.title}</td>
+            <td>ETB${product.price}</td>
+            <td>${product.stock}</td>
+            <td>${product.category}</td>
+            <td>
+              <button class="btn btn-warning btn-sm edit-btn">Edit</button>
+              <button class="btn btn-danger btn-sm delete-btn">Delete</button>
+            </td>
+          </tr>
+        `;
+      });
+
+
   </script>
     
   </body>
