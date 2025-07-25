@@ -52,6 +52,66 @@
   const searchInput = document.getElementById('searchInput');
   const categoryFilter = document.getElementById('categoryFilter');
   const priceSort = document.getElementById('priceSort');
+
+  function loadProductsFromLocalStorage() {
+    const stored = localStorage.getItem('products');
+    if (stored) {
+      products = JSON.parse(stored);
+      populateCategories(products);
+      renderProducts(products);
+    } else {
+      dataAppend.innerHTML = 'No products found';
+    }
+  }
+
+
+  function renderProducts(data) {
+    dataAppend.innerHTML = '';
+    data.forEach(product => {
+      let card = document.createElement('div');
+      card.className = 'card col-lg-3 col-md-4 col-sm-6';
+      card.style.margin = '10px';
+      card.style.width = '18rem';
+
+      let image = document.createElement("img");
+      image.src = product.image || 'https://via.placeholder.com/200';
+      image.className = "card-img-top";
+      image.style.height = "200px";
+      image.style.objectFit = "contain";
+      card.appendChild(image);
+
+      let cardBody = document.createElement('div');
+      cardBody.className = 'card-body';
+
+      let cardTitle = document.createElement('h5');
+      cardTitle.className = 'card-title';
+      cardTitle.innerText = product.title || 'No Title';
+
+      let cardPrice = document.createElement('p');
+      cardPrice.className = 'card-text';
+      cardPrice.innerText = `Price: ETB ${product.price ?? "0"}`;
+
+      let cardDesc = document.createElement('p');
+      cardDesc.className = 'card-text';
+      cardDesc.innerText = product.description?.substring(0, 80) + "..." || 'No description.';
+
+      let cardStock = document.createElement('p');
+      cardStock.className = 'text-muted';
+      cardStock.innerText = `Stock: ${product.stock ?? "N/A"}`;
+
+      let cardCategory = document.createElement('span');
+      cardCategory.className = 'badge bg-secondary';
+      cardCategory.innerText = product.category || 'Uncategorized';
+
+      cardBody.appendChild(cardTitle);
+      cardBody.appendChild(cardPrice);
+      cardBody.appendChild(cardStock);
+      cardBody.appendChild(cardCategory);
+
+      card.appendChild(cardBody);
+      dataAppend.appendChild(card);
+    });
+  }
   </script>
     
 </body>
