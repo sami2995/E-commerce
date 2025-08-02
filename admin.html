@@ -25,6 +25,10 @@
         <input type="text" id="category" class="form-control" placeholder="Category" required />
       </div>
       <div class="col-md-2">
+      <input type="url" class="form-control" id="productImage" placeholder="Image URL" required />
+</div>
+
+      <div class="col-md-2">
         <button type="submit" class="btn btn-primary w-100">Save</button>
       </div>
     </form>
@@ -36,11 +40,14 @@
           <th>Price</th>
           <th>Stock</th>
           <th>Category</th>
+           <th>Image</th> 
           <th>Actions</th>
         </tr>
       </thead>
       <tbody id="product-body"></tbody>
     </table>
+
+    
 
     <div class="mt-5">
       <h4 class="text-center">📊 Stock by Category</h4>
@@ -94,7 +101,12 @@
             <td>${product.title}</td>
             <td>ETB${product.price}</td>
             <td>${product.stock}</td>
-            <td>${product.category}</td>
+            <td>${product.category}</td> 
+            <td><img src="${product.image}" alt="${product.title}" width="50" /></td>
+
+
+            
+
             <td>
               <button class="btn btn-warning btn-sm edit-btn">Edit</button>
               <button class="btn btn-danger btn-sm delete-btn">Delete</button>
@@ -171,6 +183,8 @@
           form.price.value = product.price;
           form.stock.value = product.stock;
           form.category.value = product.category;
+          form.productImage.value = product.image;
+
         }
       }
 
@@ -187,7 +201,11 @@
         title: form.title.value,
         price: parseFloat(form.price.value),
         stock: parseInt(form.stock.value),
-        category: form.category.value
+        category: form.category.value,
+        image: form.productImage.value
+
+
+        
       };
 
       if (id) {
