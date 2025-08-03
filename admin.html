@@ -21,12 +21,16 @@
       <div class="col-md-2">
         <input type="number" id="stock" class="form-control" placeholder="Stock" required />
       </div>
-      <div class="col-md-3">
+      <div class="col-md-2">
         <input type="text" id="category" class="form-control" placeholder="Category" required />
       </div>
-      <div class="col-md-2">
+      <div class="col-md-3">
       <input type="url" class="form-control" id="productImage" placeholder="Image URL" required />
 </div>
+
+      <div class="col-md-6">
+        <textarea id="description" class="form-control" placeholder="Description" rows="2"></textarea>
+      </div>
 
       <div class="col-md-2">
         <button type="submit" class="btn btn-primary w-100">Save</button>
@@ -83,7 +87,8 @@
               stock: Math.floor(Math.random() * 100),
               category: p.category,
               image: p.image,
-              description: p.description
+              description: p.description,
+             
             }));
             saveLocalProducts(formatted);
             renderProducts(formatted);
@@ -184,6 +189,7 @@
           form.stock.value = product.stock;
           form.category.value = product.category;
           form.productImage.value = product.image;
+          form.description.value=product.description;
 
         }
       }
@@ -202,7 +208,8 @@
         price: parseFloat(form.price.value),
         stock: parseInt(form.stock.value),
         category: form.category.value,
-        image: form.productImage.value
+        image: form.productImage.value,
+        description:form.description.value
 
 
         

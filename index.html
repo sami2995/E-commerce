@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,6 +71,7 @@
   function renderProducts(data) {
     dataAppend.innerHTML = '';
     data.forEach(product => {
+
       let card = document.createElement('div');
       card.className = 'card col-lg-3 col-md-4 col-sm-6';
       card.style.margin = '10px';
@@ -95,21 +97,27 @@
 
       let cardDesc = document.createElement('p');
       cardDesc.className = 'card-text';
-      cardDesc.innerText = product.description?.substring(0, 80) + "..." || 'No description.';
+      cardDesc.innerText = product.description || 'No description.';
 
       let cardStock = document.createElement('p');
       cardStock.className = 'card-text';
       cardStock.innerText = `Stock: ${product.stock ?? "N/A"}`;
 
+      
+
+
       let cardCategory = document.createElement('span');
       cardCategory.className = 'badge bg-secondary';
       cardCategory.innerText = product.category || 'Uncategorized';
+
+        
 
       cardBody.appendChild(cardTitle);
       cardBody.appendChild(cardDesc);
       cardBody.appendChild(cardPrice);
       cardBody.appendChild(cardStock);
       cardBody.appendChild(cardCategory);
+       
 
       card.appendChild(cardBody);
       dataAppend.appendChild(card);
@@ -137,7 +145,10 @@
     const selectedCategory = categoryFilter.value;
     if (selectedCategory) {
       filtered = filtered.filter(p => p.category === selectedCategory);
+
     }
+
+  
 
     const sortValue = priceSort.value;
     if (sortValue === "asc") {
