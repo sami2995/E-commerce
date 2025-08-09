@@ -117,21 +117,19 @@
 
       let cardTitle = document.createElement('h5');
       cardTitle.className = 'card-title';
-      cardTitle.innerText = product.title || 'No Title';
+      cardTitle.innerText = product.title ;
 
       let cardPrice = document.createElement('p');
       cardPrice.className = 'card-text';
-      cardPrice.innerText = `Price: ETB ${product.price ?? "0"}`;
+      cardPrice.innerText = `Price: ETB ${product.price }`;
 
       let cardDesc = document.createElement('p');
       cardDesc.className = 'card-text';
-      cardDesc.innerText = product.description || 'No description.';
+      cardDesc.innerText = product.description ;
 
       let cardStock = document.createElement('p');
       cardStock.className = 'card-text';
-      cardStock.innerText = `Stock: ${product.stock ?? "N/A"}`;
-
-      
+      cardStock.innerText = `Stock: ${product.stock }`;
 
 
       let cardCategory = document.createElement('span');
@@ -139,9 +137,9 @@
       cardCategory.innerText = product.category || 'Uncategorized';
 
       let addBtn = document.createElement("button");
-addBtn.className = "btn btn-success w-100 mt-2";
-addBtn.innerText = "Add to Cart";
-addBtn.onclick = () => addToCart(product);
+      addBtn.className = "btn btn-success w-100 mt-2";
+      addBtn.innerText = "Add to Cart";
+      addBtn.onclick = () => addToCart(product);
 
 
         
@@ -211,7 +209,7 @@ function addToCart(product) {
   if (existing) {
     existing.quantity += 1;
   } else {
-    cart.push({ ...product, quantity: 1 });  // ← make sure quantity starts as 1
+    cart.push({ ...product, quantity: 1 });  
   }
   saveCart(cart);
   updateCartCount();
